@@ -16,7 +16,9 @@ Pacote em `src/price_radar/`:
   função **pura** que extrai título, preço (`Decimal`) e disponibilidade do
   HTML; é ela que os testes cobrem, sem rede. `scrape_target()` navega e
   espera com `WebDriverWait`; `scrape_all()` itera os alvos com rate limiting.
-- `storage.py` — (planejado) persistência do histórico de preços em `data/`.
+- `storage.py` — histórico de preços em SQLite (`data/prices.db`), stdlib sem
+  ORM. Preço gravado como TEXT (`Decimal` serializado) — nunca float para
+  dinheiro. `price_changes()` compara os dois snapshots mais recentes por slug.
 - `report.py` — (planejado) gráficos de evolução de preço com matplotlib.
 
 `data/` é versionada **de propósito**: o histórico de preços commitado faz
