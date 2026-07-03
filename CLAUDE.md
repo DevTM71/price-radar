@@ -19,7 +19,9 @@ Pacote em `src/price_radar/`:
 - `storage.py` — histórico de preços em SQLite (`data/prices.db`), stdlib sem
   ORM. Preço gravado como TEXT (`Decimal` serializado) — nunca float para
   dinheiro. `price_changes()` compara os dois snapshots mais recentes por slug.
-- `report.py` — (planejado) gráficos de evolução de preço com matplotlib.
+- `report.py` — gráfico de evolução de preço (matplotlib, backend Agg para
+  CI) e `print_summary()` com o resumo de console; a paleta categórica do
+  gráfico tem ordem fixa validada para daltonismo — não reordenar.
 
 `data/` é versionada **de propósito**: o histórico de preços commitado faz
 parte do projeto (o workflow agendado commita novas leituras).
