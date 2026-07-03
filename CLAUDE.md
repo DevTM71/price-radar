@@ -47,12 +47,24 @@ resumo, sem rede) e `chart` (só o gráfico, sem rede), com flags globais
 Testes em `tests/`, com HTML real salvo em `tests/fixtures/`. Nenhum teste
 acessa a rede.
 
+## Desenvolvimento local
+
+- Dependências no `.venv` da raiz: `.venv/bin/python -m pytest` roda a suíte;
+  `PYTHONPATH=src .venv/bin/python -m price_radar <cmd>` roda a CLI.
+- O workflow diário commita `data/` na `main` — faça `git pull` antes de
+  começar a trabalhar.
+
 ## Convenções
 
 - Docstrings em português; type hints em todo o código.
 - Toda lógica de parsing tem teste contra fixtures HTML (sem rede).
 - Logging com o módulo `logging` (nível INFO); nunca `print` em código de
-  biblioteca.
+  biblioteca. Exceção: `print_summary()` imprime de propósito — é o
+  relatório de console que o CI exibe.
+- `parse_product` usa `html.parser` da stdlib de propósito — não adicionar
+  BeautifulSoup.
+- O badge de contagem de testes do README é estático — atualize o número ao
+  adicionar testes.
 
 ## Versionamento
 
