@@ -1,0 +1,21 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.pytest_cache/
+.venv/
+venv/
+build/
+dist/
+
+# Ferramentas
+.mypy_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+
+# Sistema operacional
+.DS_Store
+
+# NOTA: data/ NÃO é ignorada de propósito — o histórico de preços
+# commitado faz parte do projeto (ver CLAUDE.md).
