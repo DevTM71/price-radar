@@ -26,6 +26,24 @@ Pacote em `src/price_radar/`:
 `data/` é versionada **de propósito**: o histórico de preços commitado faz
 parte do projeto (o workflow agendado commita novas leituras).
 
+CLI (`__main__.py`, argparse): `run` (pipeline completo), `report` (só o
+resumo, sem rede) e `chart` (só o gráfico, sem rede), com flags globais
+`--targets` e `--db`. Roda como `PYTHONPATH=src python -m price_radar <cmd>`.
+
+## Automação (GitHub Actions)
+
+- `.github/workflows/ci.yml` — roda o pytest em todo push na `main` e em
+  todo pull request. Os testes não usam rede nem navegador.
+- `.github/workflows/scrape.yml` ("Daily scrape") — roda o pipeline completo
+  todo dia às **07:23 UTC** (horário quebrado de propósito: cargas em hora
+  cheia entram em fila no Actions) e commita `data/` como
+  `github-actions[bot]` com a mensagem `chore: daily price snapshot [skip ci]`
+  — o `[skip ci]` evita disparar o workflow de testes no push do bot. Só
+  commita se `data/` mudou; `concurrency` garante que nunca há duas execuções
+  simultâneas.
+- **Disparo manual**: aba Actions → "Daily scrape" → "Run workflow", ou
+  `gh workflow run "Daily scrape"`.
+
 Testes em `tests/`, com HTML real salvo em `tests/fixtures/`. Nenhum teste
 acessa a rede.
 
